@@ -1,6 +1,7 @@
 #include <Yng.h>
+#include <Yng/Core/EntryPoint.h>
 
-//Bug Log: There types of inheritence in C plus plus
+//Bug Log: Three types of inheritence in C plus plus
 class Sandbox : public Yng::Application
 {
 public:

@@ -19,13 +19,13 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -47,18 +47,22 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)bin\$(Configuration)-$(Platform)\$(ProjectName)\</OutDir>
     <IntDir>$(SolutionDir)bin-int\$(Configuration)-$(Platform)\$(ProjectName)\</IntDir>
+    <TargetExt>.lib</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)bin\$(Configuration)-$(Platform)\$(ProjectName)\</OutDir>
     <IntDir>$(SolutionDir)bin-int\$(Configuration)-$(Platform)\$(ProjectName)\</IntDir>
+    <TargetExt>.lib</TargetExt>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>YNG_PLATFORM_WINDOWS;YNG_BUILD_DLL</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
+      <PreprocessorDefinitions>YNG_PLATFORM_WINDOWS;YNG_BUILD_DLL;D3D12_RENDER</PreprocessorDefinitions>
+      <ConformanceMode>false</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)YngEngine\vendor\spdlog\include;$(SolutionDir)YngEngine\vendor\d3d12;$(SolutionDir)YngEngine\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -71,8 +75,10 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>YNG_PLATFORM_WINDOWS;YNG_BUILD_DLL</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
+      <PreprocessorDefinitions>YNG_PLATFORM_WINDOWS;YNG_BUILD_DLL;D3D12_RENDER</PreprocessorDefinitions>
+      <ConformanceMode>false</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)YngEngine\vendor\spdlog\include;$(SolutionDir)YngEngine\vendor\d3d12;$(SolutionDir)YngEngine\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -82,13 +88,33 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="src\Yng\Application.h" />
+    <ClInclude Include="src\Yng\Scene\YComponent.h" />
+    <ClInclude Include="src\Yng\Core\CoreMinimal.h" />
+    <ClInclude Include="src\Yng\Scene\YObject.h" />
+    <ClInclude Include="src\Yng\RenderCore\RenderAPI.h" />
+    <ClInclude Include="src\Yng\Core\Window.h" />
+    <ClInclude Include="src\Yng\D3D12\D3D12Context.h" />
+    <ClInclude Include="src\Yng\D3D12\D3D12Resource.h" />
+    <ClInclude Include="src\Yng\Events\ApplicationEvent.h" />
+    <ClInclude Include="src\Yng\Events\Event.h" />
+    <ClInclude Include="src\Yng\Events\KeyEvent.h" />
+    <ClInclude Include="src\Yng\Core\Log.h" />
+    <ClInclude Include="src\Yng\Core\Application.h" />
     <ClInclude Include="src\Yng.h" />
-    <ClInclude Include="src\Yng\Core.h" />
-    <ClInclude Include="src\Yng\EntryPoint.h" />
+    <ClInclude Include="src\Yng\Core\EntryPoint.h" />
+    <ClInclude Include="src\Yng\RenderCore\GraphicCommand.h" />
+    <ClInclude Include="src\Yng\RenderCore\RenderResource.h" />
+    <ClInclude Include="src\Yng\Windows\WindowsWindow.h" />
+    <ClInclude Include="vendor\d3d12\d3dx12.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Yng\Application.cpp" />
+    <ClCompile Include="src\Yng\Scene\YObject.cpp" />
+    <ClCompile Include="src\Yng\D3D12\D3D12Context.cpp" />
+    <ClCompile Include="src\Yng\RenderCore\RenderAPI.cpp" />
+    <ClCompile Include="src\Yng\Core\Window.cpp" />
+    <ClCompile Include="src\Yng\Core\Log.cpp" />
+    <ClCompile Include="src\Yng\Core\Application.cpp" />
+    <ClCompile Include="src\Yng\Windows\WindowsWindow.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
